@@ -26,6 +26,7 @@ namespace SAM {
         {
             _rb = GetComponent<Rigidbody2D>();
             animator = GetComponent<Animator>();
+            _targetPos = GameObject.FindGameObjectWithTag("Player").transform;
             Health = _enemy.health;
             Speed = _enemy.speed;
             DetectingRange = _enemy.detectingRange;
