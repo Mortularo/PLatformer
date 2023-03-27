@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 6313597344510774097}
   - component: {fileID: 3318768864215524385}
   - component: {fileID: 8012210351606049001}
+  - component: {fileID: 5082906424191859396}
   m_Layer: 6
   m_Name: GoblinRogue
   m_TagString: Untagged
@@ -58,7 +59,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7988212216837430092}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.54, y: -4.21, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -155,3 +156,27 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.94285715, y: 1.0285715}
   m_Direction: 0
+--- !u!114 &5082906424191859396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7988212216837430092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b8f697614864324c89f946626f6b756, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemy:
+    speed: 2
+    jumpForce: 7
+    attackRange: 0.5
+    fireRate: 0
+    detectingRange: 7
+    weaponDamage: 5
+    health: 15
+  _rb: {fileID: 0}
+  _transform: {fileID: 0}
+  _speed: 0
+  IsDetected: 0

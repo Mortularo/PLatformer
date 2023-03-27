@@ -19,6 +19,11 @@ namespace SAM
         private Vector2 _direction;
         private float _nextShotTime = 0;
 
+        private void Start()
+        {
+            _target = GameObject.FindGameObjectWithTag("Player").transform;
+            IsDetected = false;
+        }
         void Update()
         {
             Vector2 TargetPosition = _target.position;
@@ -26,22 +31,18 @@ namespace SAM
             RaycastHit2D rayInfo = Physics2D.Raycast(_shotPos.position,
                                                      _direction,
                                                      _enemy.detectingRange);
-            if (rayInfo)
-            {
-                if(rayInfo.collider.gameObject.tag == "Player")
+            if(rayInfo.collider.gameObject.tag == "Player")
+            { 
+                if(IsDetected == false)
                 {
-                    
-                    if(IsDetected == false)
-                    {
-                        IsDetected = true;
-                    }
+                    IsDetected = true;
                 }
-                else
+            }
+            else
+            {
+                if (IsDetected == true)
                 {
-                    if (IsDetected == true)
-                    {
-                        IsDetected = false;
-                    }
+                    IsDetected = false;
                 }
             }
             if (IsDetected)
