@@ -7,22 +7,25 @@ namespace SAM
     public class PlayerController : MonoBehaviour
     {
         private static bool faceRight = true;
-        private static bool IsGrounded;
+        private static bool IsGrounded, JumpAble;
         private float _moveInput, _startTimer, _checkRadius = 0.1f;
-        private int _damage;
+        public int _damage, _health;
         private Rigidbody2D _rb;
         [SerializeField] private Transform _feetPos, _attackPos;
         [SerializeField] private LayerMask WhatIsGrounded, Enemy;
-        [SerializeField] private Player _player;
+        [SerializeField] private Collider2D _collider;
         [SerializeField] private Animator animator;
-
-
+        [SerializeField] private Player _player;
 
         void Start()
         {
             _rb = GetComponent<Rigidbody2D>();
             animator = GetComponent<Animator>();
+            _collider = GetComponent<Collider2D>();
             _damage = _player.weaponDamage;
+            _health = _player.health;
+            JumpAble = true;
+
         }
 
         void FixedUpdate()
@@ -51,16 +54,16 @@ namespace SAM
             IsGrounded = Physics2D.OverlapCircle(_feetPos.position, _checkRadius, WhatIsGrounded);
             if (IsGrounded == true && Input.GetKeyDown(KeyCode.Space))
             {
+                animator.SetTrigger("Jump");
                 Jump();
             }
-            if (IsGrounded == true)
+            else if (IsGrounded == false && JumpAble == true && Input.GetKeyDown(KeyCode.Space))
             {
-                animator.SetBool("IsJumping", false);
+                animator.SetTrigger("Jump");
+                Jump();
+                JumpAble = false;
             }
-            else if (IsGrounded == false)
-            {
-                animator.SetBool("IsJumping", true);
-            }
+            if (IsGrounded == true) JumpAble = true;
             if (_player.timeBtwAttacks <= 0)
             {
                 if (Input.GetMouseButtonDown(0))
@@ -73,11 +76,10 @@ namespace SAM
             {
                 _player.timeBtwAttacks -= Time.deltaTime;
             }
-        }
-        private void OnDrawGizmosSelected()
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(_attackPos.position, _player.attackRange);
+            if (_health <= 0)
+            {
+                Destroy(gameObject);
+            }
         }
         #region Methods
         public void Flip()
@@ -89,7 +91,7 @@ namespace SAM
         }
         public void Jump()
         {
-            _rb.velocity = Vector2.up * _player.jumpForce;
+            _rb.AddForce(Vector2.up * _player.jumpForce, ForceMode2D.Impulse);
         }
         public void Move()
         {
@@ -99,11 +101,17 @@ namespace SAM
         public void SlashAttack()
         {
             animator.SetTrigger("Attack");
-            Collider2D[] enemies = Physics2D.OverlapCircleAll(_attackPos.position, _player.attackRange, Enemy);
+            Collider2D[] enemies = Physics2D.OverlapCircleAll(_attackPos.position,
+                                                              _player.attackRange,
+                                                              Enemy);
             for (int i = 0; i < enemies.Length; i++)
             {
                 enemies[i].GetComponent<EnemyController>().DamageGot(_damage);
             }
+        }
+        public void DamageGot(int damage)
+        {
+            _health -= damage;
         }
         #endregion
     }

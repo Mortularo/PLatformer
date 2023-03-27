@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 287962523772232576}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AttackPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2065548871950518694}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FeetPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,9 +76,9 @@ GameObject:
   - component: {fileID: 4795323560714490701}
   - component: {fileID: 3803744177745954340}
   - component: {fileID: 540123593939975974}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Warrior
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -235,5 +235,5 @@ MonoBehaviour:
     attackRange: 0.42
     timeBtwAttacks: 1
     weaponDamage: 0
+    health: 15
   animator: {fileID: 4795323560714490701}
-  _startTimer: 0
