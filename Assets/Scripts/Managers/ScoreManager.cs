@@ -25,7 +25,7 @@ namespace SAM
             if (score >= 10)
             {
                 IsActive = true;
-                _manager.PortalOpener();
+                if (IsActive) _manager.PortalOpener();
                 //KeySwitch();
             }
         }
